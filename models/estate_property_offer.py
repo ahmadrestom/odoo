@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'  #model name

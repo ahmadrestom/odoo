@@ -55,7 +55,7 @@ class EstateProperty(models.Model):
             ('sold','Sold'),  #Property has been sold
             ('canceled','Canceled')  #Property sale canceled
         ],
-        string='Status'
+        string='Status',
         required=True,
         copy=False,  
         default='new' 
@@ -140,5 +140,3 @@ class EstateProperty(models.Model):
                         f"selling price cannot be lower than 90% of expected price"
                         f"Minimum allowed: {min_price:.2f}"
                     )
-
-    
