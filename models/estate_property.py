@@ -24,7 +24,7 @@ class EstateProperty(models.Model):
     postcode = fields.Char()  #Postal code of the property location
     
     #Availabilitiy date with default set to 90 days from now
-    date_availability = fields.Date(copy=False, default=lambda self: datetime.now() + timedelta(days=90))
+    date_availability = fields.Date(copy=False, default=lambda self: datetime.now() + timedelta(days=90), required=False)
     
     #Prices fields
     expected_price = fields.Float(required=True)  #Required expected selling price

@@ -5,6 +5,7 @@ class EstatePropertyTag(models.Model):
     _description = 'Real Estate Property Tag'
 
     name = fields.Char(required=True)  #field for tag name
+    color = fields.Integer(string='Color Index')
 
     # sort tags A to Z by default
     _order = 'name asc'

@@ -25,3 +25,20 @@ class EstatePropertyType(models.Model):
         'property_type_id',  #the field in properties that points back here
         string='Properties'  #label for the ui
     )
+
+    offer_ids = fields.One2many(
+        'estate.property.offer',
+        'property_type_id',
+        string='Offers'
+    )
+
+    offer_count = fields.Integer(
+        string='Offer Count',
+        compute='_compute_offer_count',
+        store=True
+    )
+
+    @api.depends('offer_ids')
+    def _compute_offer_count(self):
+        for record in self:
+            record.offer_count = len(record.offer_ids)
