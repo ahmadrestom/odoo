@@ -24,6 +24,15 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="new,offer_received,offer_accepted,sold,canceled"/>
+                    <button name="action_cancel" string="Cancel" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}" />
+                    <button name="action_sold" string="Sold" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}" />
+                    <field name="state" widget="statusbar" />
+                </header>
                 <sheet>
                     <h1>
                         <field name="name" />
@@ -120,9 +129,10 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_ids" eval="[
+        <field name="view_ids"
+            eval="[
             (0, 0, {'view_mode': 'tree', 'view_id': ref('estate_property_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('estate_property_form')})
-        ]"/>
+        ]" />
     </record>
 </odoo>

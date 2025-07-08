@@ -6,18 +6,27 @@
         <field name="type">list</field>
         <field name="arch" type="xml">
             <list>
-                <field name="name"/>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
             </list>
         </field>
     </record>
-    
+
     <record id="estate_property_type_form" model="ir.ui.view">
         <field name="name">estate.property.type.form</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <field name="name"/>
+                    <field name="name" />
+                    <field name="property_ids" string="Properties">
+                        <list>
+                            <field name="name" string="Property Name" />
+                            <field name="expected_price" string="expected Price" />
+                            <field name="best_price" string="Best offer" />
+                            <field name="state" string="Status" widget="statusbar" />
+                        </list>
+                    </field>
                 </sheet>
             </form>
         </field>
@@ -29,10 +38,10 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem 
-        id="menu_estate_property_type" 
-        name="Property Types" 
-        parent="menu_estate_root" 
+    <menuitem
+        id="menu_estate_property_type"
+        name="Property Types"
+        parent="menu_estate_root"
         action="estate_property_type_action"
     />
 </odoo>
