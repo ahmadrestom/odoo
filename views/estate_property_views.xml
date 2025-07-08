@@ -31,16 +31,19 @@
                 <header>
                     <field name="state" widget="statusbar"
                         statusbar_visible="new,offer_received,offer_accepted,sold,canceled" />
-                    <button name="action_cancel"
-                        string="Cancel"
-                        type="object"
-                        class="oe_highlight"
-                        attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}" />
-                    <button name="action_sold"
-                        string="Sold"
-                        type="object"
-                        class="oe_highlight"
-                        attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}" />
+                    <t t-if="record.state.raw_value not in ['sold', 'canceled']">
+                        <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            class="oe_highlight" />
+                    </t>
+
+                    <t t-if="record.state.raw_value not in ['sold','canceled']">
+                        <button name="action_sold"
+                            string="Sold"
+                            type="object"
+                            class="oe_highlight" />
+                    </t>
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
@@ -69,13 +72,14 @@
                         <field name="facades" />
                         <field name="garage" />
                         <field name="garden" />
-                        <field name="garden_area"
-                            string="Garden Area (sqm)"
-                            attrs="{'invisible': [('garden','=',False)]}"
-                        />
-                        <field name="garden_orientation"
-                            attrs="{'invisible': [('garden','=',False)]}"
-                            string="Orientation" />
+                        <t t-if="record.garden.raw_value">
+                            <field name="garden_area"
+                                string="Garden Area (sqm)" />
+                        </t>
+                        <t t-if="record.garden.raw_value">
+                            <field name="garden_orientation"
+                                string="Orientation" />
+                        </t>
 
                         <field name="total_area" string="Total Area (sqm)" />
 
@@ -88,7 +92,7 @@
                             <field name="buyer_id" string="Buyer" />
                         </group>
                     </group>
-                    
+
                 </sheet>
             </form>
         </field>
@@ -132,6 +136,6 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">list,form</field>
-        <field name="view_ids"/>
+        <field name="view_ids" />
     </record>
 </odoo>
