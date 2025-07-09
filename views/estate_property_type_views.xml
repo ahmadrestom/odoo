@@ -38,10 +38,5 @@
         <field name="view_mode">form</field>
     </record>
 
-    <menuitem
-        id="menu_estate_property_type"
-        name="Property Types"
-        parent="menu_estate_root"
-        action="estate_property_type_action"
-    />
+    
 </odoo>

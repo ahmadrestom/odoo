@@ -21,15 +21,17 @@
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
             <form>
-                <t t-if="record.status.raw_value == 'pending'">
+                
                     <button name="action_accept"
                         string="Accept"
                         type="object"
-                        class="oe_highlight" />
+                        class="oe_highlight"
+                        invisible= "status in ('accepted')"
+                        />
                     <button name="action_refuse"
                         string="Refuse"
                         type="object" />
-                </t>
+                
                 <sheet>
                     <group>
                         <field name="price" />

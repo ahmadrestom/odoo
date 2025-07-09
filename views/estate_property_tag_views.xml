@@ -28,12 +28,4 @@
         <field name="res_model">estate.property.tag</field>
         <field name="view_mode">form</field>
     </record>
-
-    <menuitem 
-        id="menu_estate_property_tag" 
-        name="Property Tags" 
-        parent="menu_estate_root" 
-        action="estate_property_tag_action" 
-        sequence="20"
-    />
 </odoo>

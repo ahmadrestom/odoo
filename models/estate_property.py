@@ -46,7 +46,7 @@ class EstateProperty(models.Model):
     )
 
     #Status fields
-    active = fields.Boolean('Active', default=False)  #Whether property is active, default inactive
+    active = fields.Boolean('Active', default=True)  #Whether property is active, default inactive
     state = fields.Selection(
         selection=[
             ('new','New'),  #newly created property
@@ -58,12 +58,12 @@ class EstateProperty(models.Model):
         string='Status',
         required=True,
         copy=False,  
-        default='new' 
+        default='new'
     )
     
     #relationship fields
     property_type_id = fields.Many2one('estate.property.type', string='Property Type')  #Link to property type
-    salesperson_id = fields.Many2one('res.users', string='Salesperson', default=lambda self: self.env.user)  #Default to current user
+    salesperson_id = fields.Many2one('res.users', string='Salesperson', default=lambda self: self.env.user) #Default to current user
     buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False)  #who bought the property??
     tag_ids = fields.Many2many(
         'estate.property.tag',
