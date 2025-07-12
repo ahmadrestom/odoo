@@ -1,6 +1,6 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from datetime import datetime, timedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
 
 class EstateProperty(models.Model):
@@ -140,3 +140,24 @@ class EstateProperty(models.Model):
                         f"selling price cannot be lower than 90% of expected price"
                         f"Minimum allowed: {min_price:.2f}"
                     )
+
+    @api.ondelete(at_uninstall=False)
+    def _prevent_deletion_if_not_new_or_cancelled(self):
+        for property in self:
+            if property.state not in ('new', 'canceled'):
+                raise UserError(_("You cannot delete a property that is not in 'New or 'Cancelled' statet'"))
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            property_id = vals.get('property_id')
+            if property_id:
+                property = self.env['estate.property'].browse(property_id)
+
+                existing_offers = property.offer_ids.mapped('price')
+                if existing_offers and vals.get('price', 0) <= max(existing_offers):
+                    raise UserError(_("You cannot create an offer with a lower amount than existing offers The minimum offer is %s") % max(existing_offers))
+                if property.state == 'new':
+                    property.write({'state': 'offer_received'})
+
+        return super().create(vals_list)

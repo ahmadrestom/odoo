@@ -35,7 +35,7 @@
                         string="Sold"
                         type="object"
                         class="oe_highlight"
-                        invisible="state not in ('sold','canceled')"
+                        invisible="state  in ('sold','canceled')"
                     />
 
                     <field name="state" widget="statusbar" />
@@ -72,7 +72,7 @@
                                 <field name="garage" />
                                 <field name="garden" />
                                 <field name="garden_area"
-                                    string="Garden Area (sqm)" />
+                                    string="Garden Area (sqm)" invisible="not garden"/>
                                 <field name="garden_orientation"
                                     string="Garden Orientation" />
                                 <field name="total_area" string="Total Area (sqm)" />
@@ -90,11 +90,11 @@
                         </page>
                         <page string="Offers">
                             <field name="offer_ids">
-                                <list>
+                                <!-- <list>
                                     <field name="price" />
                                     <field name="partner_id" />
                                     <field name="status" />
-                                </list>
+                                </list> -->
                             </field>
                         </page>
                     </notebook>

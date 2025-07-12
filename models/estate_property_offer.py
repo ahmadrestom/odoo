@@ -1,4 +1,6 @@
 from odoo import models, fields, api
+from datetime import timedelta, datetime
+from odoo.exceptions import UserError
 
 class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'  #model name
@@ -25,7 +27,7 @@ class EstatePropertyOffer(models.Model):
     validity = fields.Integer(string = "Validity(days)", default = 7)  #how long offer lasts
     date_deadline = fields.Date(  #when the offer expires
         string = "Deadline",
-        compute='_compute_data_deadline',
+        compute='_compute_date_deadline',
         inverse='_inverse_date_deadline',
         store=True
     )
@@ -56,8 +58,8 @@ class EstatePropertyOffer(models.Model):
         for offer in self:
             if offer.property_id.state == 'sold':  #cant accept if sold
                 raise UserError("cant accept offer for already sold property")
-            if any(offer.property_id.offer_ids.mapped('is_accepted')):  #check if other offer accepted
-                raise UserError("only one offer can be accepted per property")
+            # if any(offer.property_id.offer_ids.mapped('status')=='accepted'):  #check if other offer accepted
+            #     raise UserError("only one offer can be accepted per property")
             offer.status = 'accepted'  #update status
             offer.property_id.write({  #update the property
                 'buyer_id': offer.partner_id.id,  #set buyer
