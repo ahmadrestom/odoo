@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="estate_property_offer_list" model="ir.ui.view">
+        <field name="name">estate.property.offer.list</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <list editable="top" string="Offers" decoration-danger="status == 'refused'"
+                decoration-success="status == 'accepted'">
+                <field name="price" string="Price" />
+                <field name="partner_id" string="Partner" />
+                <field name="property_type_id" />
+                <field name="validity" string="Validity (days)" />
+                <field name="date_deadline" string="Deadline" />
+                <!-- <field name="status"/> -->
+                <button name="action_accept" string="Accept" type="object"/>
+                <button name="action_refuse" string="Refuse" type="object"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="estate_property_offer_form" model="ir.ui.view">
+        <field name="name">estate.property.offer.form</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form>
+                
+                    <button name="action_accept"
+                        string="Accept"
+                        type="object"
+                        class="oe_highlight"
+                        invisible= "status in ('accepted')"
+                        />
+                    <button name="action_refuse"
+                        string="Refuse"
+                        type="object" />
+                
+                <sheet>
+                    <group>
+                        <field name="price" />
+                        <field name="partner_id" string="Partner" />
+                    </group>
+                    <group>
+                        <field name="validity" string="Validity (days)" />
+                        <field name="date_deadline" string="Deadline" />
+                        <field name="status" />
+                        <field name="property_id" invisible="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
