@@ -161,3 +161,7 @@ class EstateProperty(models.Model):
                     property.write({'state': 'offer_received'})
 
         return super().create(vals_list)
+    
+
+    def action_print_offers_report(self):
+        return self.env.ref('estate.action_property_offers_report').report_action(self)

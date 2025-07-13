@@ -15,6 +15,7 @@
                 <!-- <field name="date_availability" string="Available From" /> -->
                 <field name="property_type_id" options="{'no_create': True, 'no_edit': True}" />
             </list>
+            
         </field>
     </record>
 
@@ -26,6 +27,13 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <xpath expr="//header" position="inside">
+                <button name="action_print_offers_report"
+                        string="Print Offers"
+                        type="object"
+                        class="oe_highlight"
+                        icon="fa-print"/>
+            </xpath>
                     <button name="action_cancel"
                         string="Cancel"
                         type="object"
@@ -37,7 +45,6 @@
                         class="oe_highlight"
                         invisible="state  in ('sold','canceled')"
                     />
-
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
@@ -56,8 +63,9 @@
                         </group>
                     </group>
                     <group>
-                        <field string="Tags" name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
-                    </group>                    
+                        <field string="Tags" name="tag_ids" widget="many2many_tags"
+                            options="{'color_field': 'color'}" />
+                    </group>
                     <group>
                         <field name="property_type_id"
                             options="{'no_create': True, 'no_edit': True}" />
@@ -74,9 +82,9 @@
                                 <field name="garage" />
                                 <field name="garden" />
                                 <field name="garden_area"
-                                    string="Garden Area (sqm)" invisible="not garden"/>
+                                    string="Garden Area (sqm)" invisible="not garden" />
                                 <field name="garden_orientation"
-                                    string="Garden Orientation" invisible="not garden"/>
+                                    string="Garden Orientation" invisible="not garden" />
                                 <field name="total_area" string="Total Area (sqm)" />
                             </group>
                         </page>
@@ -92,7 +100,7 @@
                         </page>
                         <page string="Offers">
                             <field name="offer_ids">
-                                
+
                             </field>
                         </page>
                     </notebook>
