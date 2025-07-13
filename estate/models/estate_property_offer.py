@@ -58,8 +58,12 @@ class EstatePropertyOffer(models.Model):
         for offer in self:
             if offer.property_id.state == 'sold':  #cant accept if sold
                 raise UserError("cant accept offer for already sold property")
-            # if any(offer.property_id.offer_ids.mapped('status')=='accepted'):  #check if other offer accepted
-            #     raise UserError("only one offer can be accepted per property")
+            accepted_offers= offer.property_id.offer_ids.filtered(
+                lambda o: o.status == 'accepted' and o.id != offer.id
+            )
+            if accepted_offers:
+                raise UserError("Only one offer can be accepted per property")
+            
             offer.status = 'accepted'  #update status
             offer.property_id.write({  #update the property
                 'buyer_id': offer.partner_id.id,  #set buyer

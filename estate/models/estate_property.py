@@ -16,6 +16,8 @@ class EstateProperty(models.Model):
          'Property expected price must be strictly positive'),
         ('check_selling_price', 'CHECK(selling_price >= 0)', 
          'Property selling price must be positive'),
+         ('unique_property_name', 'UNIQUE(name)', 
+         'Property name must be unique - a property with this name already exists'),
     ]
 
     #Basic fields

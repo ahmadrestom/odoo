@@ -33,14 +33,14 @@
         name="Property Types"
         parent="menu_configuration"
         action="estate_property_type_action"
-        sequence="10"
+        sequence="20"
     />
     <menuitem 
         id="menu_estate_property_tag" 
         name="Property Tags" 
         parent="menu_configuration" 
         action="estate_property_tag_action" 
-        sequence="20"
+        sequence="10"
     />
 
 </odoo>
